@@ -1,0 +1,21 @@
+
+# Connect to DB
+conn = psycopg2.connect(
+    host="localhost",
+    database="RCB_DB",        # ✅ Your actual DB name
+    user="postgres",          # ✅ Your PostgreSQL username
+    password="8484"           # ✅ Your PostgreSQL password
+)
+cur = conn.cursor()
+
+# Search player in DB
+def get_player(player_jersey):
+    cur.execute("SELECT * FROM players WHERE player_jersey = %s", (player_jersey,))
+    return cur.fetchone()
+
+# Add new player
+def add_player(player_jersey):
+    name = input("Enter name: ")
+    role = input("Enter role: ")
+    runs = int(input("Enter runs: "))
+    strike_rate = float(input("Enter strike rate: "))
